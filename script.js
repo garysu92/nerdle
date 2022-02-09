@@ -6,6 +6,8 @@ let row = 1;
 
 const box = document.getElementById("box");
 
+let nextRow = true;
+
 window.onload = function (){
     start();
 }
@@ -22,17 +24,25 @@ function start () {
 
     document.addEventListener("keyup", (e) => {
         if ("Digit0" <= e.code && e.code <= "Digit9") {
-            if (col <= w && row <= h) {
+            if (col <= w && row <= h && nextRow) {
                 let block = document.getElementById(row.toString() + "-" + col.toString());
                 block.innerText = e.code[5];
                 if (col == w) {
-                    row++;
-                    col = 1;
+                    col++;
+                    nextRow = false;
                 } else {
                     col++;
                 }
             }
-        }
+        } else if (e.code == "Backspace") {
+            if (0 < col) {
+                let del = document.getElementById(row.toString() + "-" + (col - 1).toString());
+                console.log(del.innerText);
+                del.innerText = "";
+                col--;
+                nextRow = true;
+            }
+        } 
     })
 }
 
