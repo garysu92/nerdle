@@ -58,3 +58,7 @@ hr {
   align-items: center;
   justify-content: center;
 }
+
+.ops:hover {
+  box-shadow: 0px 0px 10px grey;
+}
