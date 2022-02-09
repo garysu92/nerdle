@@ -47,11 +47,10 @@ function start () {
 }
 
 function onClick() {
-    if (col <= w && row <= h) {
+    if (col <= w && row <= h && nextRow) {
         let block = document.getElementById(row.toString() + "-" + col.toString());
         if (this.id == "plus") {
-            console.log("gdsaf");
-            block.innerText = '+';
+            block.innerText = "+";
         } else if (this.id == 'minus') {
             block.innerText = "−";
         } else if (this.id == 'times') {
@@ -62,8 +61,8 @@ function onClick() {
             block.innerText = "=";
         }
         if (col == w) {
-            row++;
-            col = 1;
+            col++;
+            nextRow = false;
         } else {
             col++;
         }
