@@ -24,6 +24,10 @@ window.onload = function () {
   start();
 };
 
+function hasClass(element, className) {
+    return (' ' + element.className + ' ').indexOf(' ' + className + ' ') > -1;
+}
+
 function start() {
   op = Math.floor(Math.random() * 4 + 1);
   while (!valid) {
@@ -104,6 +108,13 @@ function start() {
         if (t.className != "correct") {
           t.classList.add("semi-correct");
         }
+      }
+    }
+    for (let i = 0; i < 8; i++) {
+      let t = document.getElementById((row - 1).toString() + "-" + (i + 1).toString());
+      console.log(t.className);
+      if (!hasClass(t, "correct") && !hasClass(t, "semi-correct")) {
+        t.classList.add("wrong");
       }
     }
   }

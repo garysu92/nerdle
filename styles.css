@@ -6,7 +6,7 @@ h1 {
   margin-bottom: none;
 }
 #box {
-  width: 676px;
+  width: 656px;
   height: 492px;
   display: flex;
   flex-wrap: wrap;
@@ -64,9 +64,13 @@ hr {
 }
 
 .correct {
-  background-color: green;
+  background-color: #6aaa64;
 }
 
 .semi-correct {
-  background-color: yellow;
+  background-color: #c9b458;
+}
+
+.wrong {
+  background-color: #787c7e;
 }
