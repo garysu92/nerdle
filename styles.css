@@ -62,3 +62,11 @@ hr {
 .ops:hover {
   box-shadow: 0px 0px 10px grey;
 }
+
+.correct {
+  background-color: green;
+}
+
+.semi-correct {
+  background-color: yellow;
+}

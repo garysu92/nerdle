@@ -15,8 +15,10 @@ let nextRow = true;
 let valid = false;
 
 let ansBlock = [];
+let currAns = [];
 
 let iter = 0;
+let ansIter = 0;
 
 window.onload = function () {
   start();
@@ -84,7 +86,27 @@ function start() {
       box.appendChild(tile);
     }
   }
-
+  function updateTiles() {
+    for (let i = 0; i < 8; i++) {
+      console.log(currAns[i]+" " +ansBlock[i]);
+      if (currAns[i] == ansBlock[i]) {
+        let t = document.getElementById((row - 1).toString() + "-" + (i + 1).toString());
+        ansBlock[i] = "NOTHING";
+        t.classList.add("correct");
+      }
+    }
+    for (let i = 0; i < 8; i++) {
+      console.log(currAns[i]+ " " +ansBlock[i]);
+      if (ansBlock.includes(currAns[i])) {
+        let t = document.getElementById((row - 1).toString() + "-" + (i + 1).toString());
+        let pos = ansBlock.indexOf(currAns[i]);
+        ansBlock[pos] = "NOTHING";
+        if (t.className != "correct") {
+          t.classList.add("semi-correct");
+        }
+      }
+    }
+  }
   document.addEventListener("keyup", (e) => {
     if ("Digit0" <= e.code && e.code <= "Digit9") {
       if (col <= w && row <= h && nextRow) {
@@ -92,6 +114,8 @@ function start() {
           row.toString() + "-" + col.toString()
         );
         block.innerText = e.code[5];
+        currAns[ansIter] = e.code[5];
+        ansIter++;
         if (col == w) {
           col++;
           nextRow = false;
@@ -104,10 +128,18 @@ function start() {
         let del = document.getElementById(
           row.toString() + "-" + (col - 1).toString()
         );
-        console.log(del.innerText);
+        currAns[ansIter] = "";
+        ansIter--;
         del.innerText = "";
         col--;
         nextRow = true;
+      }
+    } else if (e.code == "Enter") {
+      if (col == w + 1) {
+        row++;
+        col = 1;
+        nextRow = true;
+        updateTiles();
       }
     }
   });
@@ -118,14 +150,24 @@ function onClick() {
     let block = document.getElementById(row.toString() + "-" + col.toString());
     if (this.id == "plus") {
       block.innerText = "+";
+      currAns[ansIter] = "+";
+      ansIter++;
     } else if (this.id == "minus") {
       block.innerText = "−";
+      currAns[ansIter] = "−";
+      ansIter++;
     } else if (this.id == "times") {
       block.innerText = "×";
+      currAns[ansIter] = "×";
+      ansIter++;
     } else if (this.id == "divide") {
       block.innerText = "÷";
+      currAns[ansIter] = "÷";
+      ansIter++;
     } else if (this.id == "equal") {
       block.innerText = "=";
+      currAns[ansIter] = "=";
+      ansIter++;
     }
     if (col == w) {
       col++;
