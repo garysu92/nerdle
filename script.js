@@ -122,6 +122,37 @@ function checkValid() {
   return true;
 }
 
+// generates new game button
+function genNew() {
+  var btn = document.createElement("button");
+  btn.textContent = "New Game";
+  btn.id = "new";
+  document.body.appendChild(btn);
+  btn.addEventListener("click", function () {
+    col = 1;
+    row = 1;
+
+    num1 = 0;
+    num2 = 0;
+    op = 0;
+    ans = 0;
+
+    wrongs = 0;
+
+    nextRow = true;
+    valid = false;
+
+    ansBlock = [];
+    currAns = [];
+
+    iter = 0;
+    ansIter = 0;
+    document.getElementById("box").innerHTML = "";
+    document.getElementById("new").remove();
+    start();
+  });
+}
+
 // updates the tiles depending on if user got it right
 function updateTiles() {
   // make a copy of user's answers
@@ -141,7 +172,8 @@ function updateTiles() {
   }
   if (numCorrect == 8) {
     setTimeout(() => {
-      alert("done");
+      alert("Congrats, you got it!");
+      genNew();
     }, 1);
     return;
   }
@@ -230,7 +262,18 @@ document.addEventListener("keyup", (e) => {
         updateTiles();
         if (wrongs == 6) {
           setTimeout(() => {
-            alert("game over");
+            let a = "";
+            for (let i = 0; i < 8; i++) {
+              if (isOp(ansBlock[i])) {
+                a += " ";
+              }
+              a += ansBlock[i];
+              if (isOp(ansBlock[i])) {
+                a += " ";
+              }
+            }
+            alert("Game Over: The equation was " + a);
+            genNew();
           }, 1);
         }
       }
@@ -401,5 +444,3 @@ document.getElementById("minus").onclick = onClick;
 document.getElementById("times").onclick = onClick;
 document.getElementById("divide").onclick = onClick;
 document.getElementById("equal").onclick = onClick;
-
-function newGame() {}
