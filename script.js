@@ -140,7 +140,9 @@ function updateTiles() {
     }
   }
   if (numCorrect == 8) {
-    alert("done");
+    setTimeout(() => {
+      alert("done");
+    }, 1);
     return;
   }
   wrongs++;
@@ -166,10 +168,6 @@ function updateTiles() {
     if (!hasClass(t, "correct") && !hasClass(t, "semi-correct")) {
       t.classList.add("wrong");
     }
-  }
-  if (wrongs == 6) {
-    alert("game over");
-    return;
   }
   // reset for next input
   currAns = [];
@@ -230,6 +228,11 @@ document.addEventListener("keyup", (e) => {
         col = 1;
         nextRow = true;
         updateTiles();
+        if (wrongs == 6) {
+          setTimeout(() => {
+            alert("game over");
+          }, 1);
+        }
       }
     }
   } else if (e.code == "Minus") {
