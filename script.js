@@ -211,7 +211,7 @@ document.addEventListener("keyup", (e) => {
     }
     // backspace
   } else if (e.code == "Backspace") {
-    if (0 < col) {
+    if (1 < col) {
       let del = document.getElementById(
         row.toString() + "-" + (col - 1).toString()
       );
