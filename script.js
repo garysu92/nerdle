@@ -162,8 +162,34 @@ function genNew() {
     ansIter = 0;
     document.getElementById("box").innerHTML = "";
     document.getElementById("new").remove();
+    let z = document.getElementsByClassName("ops");
+    Array.prototype.forEach.call(z, function (b) {
+      b.classList.remove("correct");
+      b.classList.remove("semi-correct");
+      b.classList.remove("wrong");
+    });
+    z = document.getElementsByClassName("nums");
+    Array.prototype.forEach.call(z, function (b) {
+      b.classList.remove("correct");
+      b.classList.remove("semi-correct");
+      b.classList.remove("wrong");
+    });
     start();
   });
+}
+
+// updates the keyboard colours based on input
+function changeKeys(w, inp) {
+  if (w == 0) {
+    document.getElementById(inp).classList.add("correct");
+  } else if (w == 1) {
+    let b = document.getElementById(inp);
+    if (!hasClass(b, "correct")) {
+      b.classList.add("semi-correct");
+    }
+  } else if (w == 2) {
+    document.getElementById(inp).classList.add("wrong");
+  }
 }
 
 // updates the tiles depending on if user got it right
@@ -179,6 +205,7 @@ function updateTiles() {
       );
       aTemp[i] = "NOTHING";
       t.classList.add("correct");
+      changeKeys(0, currAns[i]);
       numCorrect++;
     }
   }
@@ -200,6 +227,7 @@ function updateTiles() {
       aTemp[pos] = "NOTHING";
       if (!t.classList.contains("correct")) {
         t.classList.add("semi-correct");
+        changeKeys(1, currAns[i]);
       }
     }
   }
@@ -210,6 +238,7 @@ function updateTiles() {
     );
     if (!hasClass(t, "correct") && !hasClass(t, "semi-correct")) {
       t.classList.add("wrong");
+      changeKeys(2, currAns[i]);
     }
   }
   // reset for next input
@@ -421,7 +450,7 @@ function start() {
         ansBlock[iter] = arrNum3[i];
         iter++;
       }
-      // console.log(ansBlock);
+      console.log(ansBlock);
     }
   }
   createTiles();
@@ -445,10 +474,10 @@ function onClick() {
 
 // onclick
 let t = document.getElementsByClassName("nums");
-Array.prototype.forEach.call(t, function(elem) {
-    elem.addEventListener("click", onClick);
+Array.prototype.forEach.call(t, function (elem) {
+  elem.addEventListener("click", onClick);
 });
 let o = document.getElementsByClassName("ops");
-Array.prototype.forEach.call(o, function(elem) {
+Array.prototype.forEach.call(o, function (elem) {
   elem.addEventListener("click", onClick);
 });
