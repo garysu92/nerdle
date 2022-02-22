@@ -431,27 +431,9 @@ function start() {
 function onClick() {
   if (col <= w && row <= h && nextRow) {
     let block = document.getElementById(row.toString() + "-" + col.toString());
-    if (this.id == "plus") {
-      block.innerText = "+";
-      currAns[ansIter] = "+";
-      ansIter++;
-    } else if (this.id == "minus") {
-      block.innerText = "-";
-      currAns[ansIter] = "-";
-      ansIter++;
-    } else if (this.id == "times") {
-      block.innerText = "×";
-      currAns[ansIter] = "×";
-      ansIter++;
-    } else if (this.id == "divide") {
-      block.innerText = "÷";
-      currAns[ansIter] = "÷";
-      ansIter++;
-    } else if (this.id == "equal") {
-      block.innerText = "=";
-      currAns[ansIter] = "=";
-      ansIter++;
-    }
+    block.innerText = this.id;
+    currAns[ansIter] = this.id;
+    ansIter++;
     if (col == w) {
       col++;
       nextRow = false;
@@ -462,8 +444,11 @@ function onClick() {
 }
 
 // onclick
-document.getElementById("plus").onclick = onClick;
-document.getElementById("minus").onclick = onClick;
-document.getElementById("times").onclick = onClick;
-document.getElementById("divide").onclick = onClick;
-document.getElementById("equal").onclick = onClick;
+let t = document.getElementsByClassName("nums");
+Array.prototype.forEach.call(t, function(elem) {
+    elem.addEventListener("click", onClick);
+});
+let o = document.getElementsByClassName("ops");
+Array.prototype.forEach.call(o, function(elem) {
+  elem.addEventListener("click", onClick);
+});
