@@ -452,7 +452,7 @@ function start() {
         ansBlock[iter] = arrNum3[i];
         iter++;
       }
-      console.log(ansBlock);
+      // console.log(ansBlock);
     }
   }
   createTiles();
