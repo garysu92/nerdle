@@ -80,8 +80,8 @@ button {
   width: 150px;
   height: 40px;
   font-size: 15px;
-  background-color: whitesmoke;
-  color: black;
+  background-color: gray;
+  color: white;
   font-weight: bold;
   text-align: center;
   border-radius: 5px;

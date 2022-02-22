@@ -144,6 +144,7 @@ function genNew() {
   var btn = document.createElement("button");
   btn.textContent = "New Game";
   btn.id = "new";
+  btn.classList.add("button");
   document.body.appendChild(btn);
   btn.addEventListener("click", function () {
     col = 1;
