@@ -101,3 +101,12 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+#alertText {
+  font-size: 30px;
+  font-family: "Poppins";
+  margin-top: 0px;
+  margin-bottom: 10px;
+  font-weight: 660;
+  color: white;
+}

@@ -70,11 +70,11 @@ function checkValid() {
   // make sure only 1 equal sign, and it is not in the first or
   //   last position
   if (eqnCount != 1) {
-    alert("Invalid: Missing or too many equal signs");
+    document.getElementById("alertText").innerText = "INVALID: MISSING OR TOO MANY EQUAL SIGNS";
     return false;
   }
   if (eqnPos == 0 || eqnPos == 7) {
-    alert("Invalid: Equals at bad places");
+    document.getElementById("alertText").innerText = "INVALID: EQUAL SIGNS AT BAD PLACES";
     return false;
   }
   // find the left and right expressions
@@ -89,7 +89,7 @@ function checkValid() {
   // check for leading 0s
   for (let i = 0; i < 7; i++) {
     if (isOp(currAns[i]) && currAns[i + 1] == 0) {
-      alert("Invalid: Leading zeroes");
+      document.getElementById("alertText").innerText = "INVALID: LEADING ZEROES";
       return false;
     }
   }
@@ -100,7 +100,7 @@ function checkValid() {
       isOp(currAns[i + 1]) &&
       !(currAns[i] == "=" && currAns[i + 1] == "-")
     ) {
-      alert("Invalid: Operators are placed next to each other");
+      document.getElementById("alertText").innerText = "INVALID: OPERATORS CANNOT BE NEXT TO EACH OTHER";
       return false;
     }
   }
@@ -128,12 +128,12 @@ function checkValid() {
     rrCalc == Infinity ||
     rrCalc == -Infinity
   ) {
-    alert("Invalid: Division by 0");
+    document.getElementById("alertText").innerText = "INVALID: DIVISION BY 0";
     return false;
   }
   // determine if they are equal
   if (lrCalc != rrCalc) {
-    alert("Invalid: Equation is not equal");
+    document.getElementById("alertText").innerText = "INVALID: EQUATION IS NOT EQUAL";
     return false;
   }
   return true;
@@ -174,6 +174,7 @@ function genNew() {
       b.classList.remove("semi-correct");
       b.classList.remove("wrong");
     });
+    document.getElementById("alertText").innerText = "";
     start();
   });
 }
@@ -211,7 +212,7 @@ function updateTiles() {
   }
   if (numCorrect == 8) {
     setTimeout(() => {
-      alert("Congrats, you got it!");
+      document.getElementById("alertText").innerText = "CONGRATS! YOU GOT IT!";
       genNew();
     }, 1);
     return;
@@ -296,6 +297,7 @@ document.addEventListener("keyup", (e) => {
     if (col == w + 1) {
       // make sure that input is valid
       if (checkValid()) {
+        document.getElementById("alertText").innerText = "";
         row++;
         col = 1;
         nextRow = true;
@@ -312,7 +314,7 @@ document.addEventListener("keyup", (e) => {
                 a += " ";
               }
             }
-            alert("Game Over: The equation was " + a);
+            document.getElementById("alertText").innerText = "GAME OVER! THE EQUATION WAS " + a;
             genNew();
           }, 1);
         }
