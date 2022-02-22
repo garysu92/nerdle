@@ -10,7 +10,7 @@ button {
   width: 150px;
   height: 40px;
   font-size: 15px;
-  background-color: gray;
+  background-color: #292929;
   color: white;
   font-weight: bold;
   text-align: center;
@@ -109,4 +109,5 @@ body {
   margin-bottom: 10px;
   font-weight: 660;
   color: white;
+  margin-top: 30px;
 }
