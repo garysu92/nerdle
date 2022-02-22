@@ -328,6 +328,17 @@ document.addEventListener("keyup", (e) => {
         col++;
       }
     }
+  } else if (e.code == "KeyX") {
+    let block = document.getElementById(row.toString() + "-" + col.toString());
+    block.innerText = "×";
+    currAns[ansIter] = "×";
+    ansIter++;
+    if (col == w) {
+      col++;
+      nextRow = false;
+    } else {
+      col++;
+    }
   } else if (e.code == "Slash") {
     let block = document.getElementById(row.toString() + "-" + col.toString());
     block.innerText = "÷";
@@ -374,7 +385,7 @@ function start() {
       ans = num1 / num2;
     }
     // make sure that the quotient is not rounded and it is the correct integer
-    if ((op == 4 && ans * num2 != num1) || (ans % 1 != 0)) {
+    if ((op == 4 && ans * num2 != num1) || ans % 1 != 0) {
       continue;
     }
     // make sure answer is of correct length before proceeding
