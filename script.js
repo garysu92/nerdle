@@ -39,6 +39,7 @@ function isOp(str) {
     str == "+" ||
     str == "-" ||
     str == "*" ||
+    str == "×" ||
     str == "/" ||
     str == "÷"
   ) {
@@ -56,6 +57,14 @@ function checkValid() {
     if (currAns[i] === "=") {
       eqnCount++;
       eqnPos = i;
+    }
+  }
+  // replace × with *, ÷ with /
+  for (let i = 0; i < 8; i++) {
+    if (currAns[i] === "×") {
+      currAns[i] = "*";
+    } else if (currAns[i] === "÷") {
+      currAns[i] = "/";
     }
   }
   // make sure only 1 equal sign, and it is not in the first or
@@ -104,6 +113,14 @@ function checkValid() {
   // evaluate both expressions
   let lrCalc = Function("return " + leftRes)();
   let rrCalc = Function("return " + rightRes)();
+  // switch them back
+  for (let i = 0; i < 8; i++) {
+    if (currAns[i] === "*") {
+      currAns[i] = "×";
+    } else if (currAns[i] === "/") {
+      currAns[i] = "÷";
+    }
+  }
   // make sure no divide by 0
   if (
     lrCalc == Infinity ||
@@ -122,7 +139,7 @@ function checkValid() {
   return true;
 }
 
-// generates new game button
+// generates new game button and allows to start a new game
 function genNew() {
   var btn = document.createElement("button");
   btn.textContent = "New Game";
@@ -131,20 +148,15 @@ function genNew() {
   btn.addEventListener("click", function () {
     col = 1;
     row = 1;
-
     num1 = 0;
     num2 = 0;
     op = 0;
     ans = 0;
-
     wrongs = 0;
-
     nextRow = true;
     valid = false;
-
     ansBlock = [];
     currAns = [];
-
     iter = 0;
     ansIter = 0;
     document.getElementById("box").innerHTML = "";
@@ -160,7 +172,6 @@ function updateTiles() {
   // check for CORRECT
   let numCorrect = 0;
   for (let i = 0; i < 8; i++) {
-    console.log(currAns[i] + " " + aTemp[i]);
     if (currAns[i] == aTemp[i]) {
       let t = document.getElementById(
         (row - 1).toString() + "-" + (i + 1).toString()
@@ -196,7 +207,6 @@ function updateTiles() {
     let t = document.getElementById(
       (row - 1).toString() + "-" + (i + 1).toString()
     );
-    console.log(t.className);
     if (!hasClass(t, "correct") && !hasClass(t, "semi-correct")) {
       t.classList.add("wrong");
     }
@@ -215,8 +225,8 @@ document.addEventListener("keyup", (e) => {
         let block = document.getElementById(
           row.toString() + "-" + col.toString()
         );
-        block.innerText = "*";
-        currAns[ansIter] = "*";
+        block.innerText = "×";
+        currAns[ansIter] = "×";
         ansIter++;
         if (col == w) {
           col++;
@@ -319,8 +329,8 @@ document.addEventListener("keyup", (e) => {
     }
   } else if (e.code == "Slash") {
     let block = document.getElementById(row.toString() + "-" + col.toString());
-    block.innerText = "/";
-    currAns[ansIter] = "/";
+    block.innerText = "÷";
+    currAns[ansIter] = "÷";
     ansIter++;
     if (col == w) {
       col++;
@@ -362,7 +372,8 @@ function start() {
     } else {
       ans = num1 / num2;
     }
-    if (op == 4 && ans * num2 != num1) {
+    // make sure that the quotient is not rounded and it is the correct integer
+    if ((op == 4 && ans * num2 != num1) || (ans % 1 != 0)) {
       continue;
     }
     // make sure answer is of correct length before proceeding
@@ -383,9 +394,9 @@ function start() {
       } else if (op == 2) {
         ansBlock[iter] = "-";
       } else if (op == 3) {
-        ansBlock[iter] = "*";
+        ansBlock[iter] = "×";
       } else {
-        ansBlock[iter] = "/";
+        ansBlock[iter] = "÷";
       }
       iter++;
       for (let i = 0; i < arrNum2.length; i++) {
@@ -398,7 +409,7 @@ function start() {
         ansBlock[iter] = arrNum3[i];
         iter++;
       }
-      console.log(ansBlock);
+      // console.log(ansBlock);
     }
   }
   createTiles();
@@ -417,12 +428,12 @@ function onClick() {
       currAns[ansIter] = "-";
       ansIter++;
     } else if (this.id == "times") {
-      block.innerText = "*";
-      currAns[ansIter] = "*";
+      block.innerText = "×";
+      currAns[ansIter] = "×";
       ansIter++;
     } else if (this.id == "divide") {
-      block.innerText = "/";
-      currAns[ansIter] = "/";
+      block.innerText = "÷";
+      currAns[ansIter] = "÷";
       ansIter++;
     } else if (this.id == "equal") {
       block.innerText = "=";
